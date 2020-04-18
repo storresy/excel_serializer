@@ -21,11 +21,7 @@ module ExcelSerializer
     end
 
     def add_headers(sheet_name)
-      sheet_hash = sheet(sheet_name)
-      current_sheet = sheet_hash[:sheet]
-      self.class.attributes_to_serialize.each_with_index do |attribute, current_column|
-        current_sheet.write(0, current_column, attribute)
-      end
+      sheet(sheet_name).write_headers(self.class.attributes_to_serialize)
     end
 
     def current_excel
@@ -34,12 +30,7 @@ module ExcelSerializer
     end
 
     def write(sheet_name, row)
-      sheet_hash = sheet(sheet_name)
-      current_sheet = sheet_hash[:sheet]
-      current_row = (sheet_hash[:row_counter] += 1)
-      row.each_with_index do |value, current_column|
-        current_sheet.write(current_row, current_column, value)
-      end
+      sheet(sheet_name).write_row(row)
     end
 
     def sheet(sheet_name)
@@ -48,12 +39,8 @@ module ExcelSerializer
       @sheets[sheet_name]
     end
 
-
     def worksheet(sheet_name)
-      { 
-        sheet: current_excel.add_worksheet(sheet_name),
-        row_counter: 0
-      }
+      ExcelSerializer::Worksheet.new(current_excel, sheet_name)
     end
 
     def file_path=(file_path)
