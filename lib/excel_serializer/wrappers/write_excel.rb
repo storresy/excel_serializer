@@ -8,7 +8,7 @@ module ExcelSerializer
       end
 
       def add_worksheet(sheet_name)
-        @write_excel.add_worksheet(sheet_name)
+        WorkSheet.new(@write_excel, sheet_name)
       end
 
       def write(sheet_name, row)
@@ -17,6 +17,17 @@ module ExcelSerializer
 
       def save
         @write_excel.close
+      end
+
+      class WorkSheet
+        def initialize(write_excel, sheet_name)
+          @write_excel = write_excel
+          @worksheet = @write_excel.add_worksheet(sheet_name)
+        end
+
+        def write(row, column, value)
+          @worksheet.write(row, column, value)
+        end
       end
 
     end
