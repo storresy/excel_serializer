@@ -5,23 +5,15 @@ module ExcelSerializer
     included do
       class << self
         attr_accessor :attributes_to_serialize
+        attr_accessor :included_relations
+        attr_accessor :computed_headers
       end
     end
 
     private
 
-    def single_resource_info(resource)
-      self.class.attributes_to_serialize.map do |attribute|
-        if self.respond_to?(attribute)
-          self
-        else
-          resource
-        end.send(attribute)
-      end
-    end
-
     def add_headers(sheet_name)
-      sheet(sheet_name).write_headers(self.class.attributes_to_serialize)
+      sheet(sheet_name).write_headers(headers)
     end
 
     def current_excel
