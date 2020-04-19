@@ -45,7 +45,7 @@ module ExcelSerializer
 
     def file_path=(file_path)
       if file_path.blank? 
-        @file_path = "/tmp/#{SecureRandom.uuid}.xls"
+        @file_path = "/tmp/#{SecureRandom.uuid}#{wrapper.file_extension}"
       else
         @file_path= file_path
       end

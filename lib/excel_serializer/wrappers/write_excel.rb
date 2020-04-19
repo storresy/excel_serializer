@@ -19,6 +19,10 @@ module ExcelSerializer
         @write_excel.close
       end
 
+      def self.file_extension
+        '.xls'
+      end
+
       class WorkSheet
         def initialize(write_excel, sheet_name)
           @write_excel = write_excel
