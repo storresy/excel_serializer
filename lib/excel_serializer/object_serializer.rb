@@ -31,6 +31,18 @@ module ExcelSerializer
         computed_headers
       end
 
+      def excel_adapter(adapter)
+        current_config.excel_adapter = adapter
+      end
+
+      def translation_adapter(adapter)
+        current_config.translation_adapter = adapter
+      end
+
+      def current_config
+        self.config ||= ExcelSerializer.config.dup
+      end
+
       private
       
       def relation_serializer(relation)

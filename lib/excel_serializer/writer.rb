@@ -7,6 +7,7 @@ module ExcelSerializer
         attr_accessor :attributes_to_serialize
         attr_accessor :included_relations
         attr_accessor :computed_headers
+        attr_accessor :config
       end
     end
 
@@ -53,7 +54,12 @@ module ExcelSerializer
     end
 
     def adapter
-      ::ExcelSerializer::Adapters::WriteExcel
+      case self.class.current_config.excel_adapter
+      when :write_excel
+        ::ExcelSerializer::Adapters::WriteExcel
+      else
+        raise "Invalid excel writer adapter"
+      end
     end
   end
 end
