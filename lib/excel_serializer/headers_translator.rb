@@ -7,7 +7,7 @@ module ExcelSerializer
         if computed_headers.blank?
           self.computed_headers ||= []
           self.attributes_to_serialize.each do |attribute|
-            self.computed_headers << translate_attribute(attribute) # TODO: translate attribute
+            self.computed_headers << translate_attribute(attribute)
           end
         end
         computed_headers
