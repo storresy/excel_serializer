@@ -18,7 +18,7 @@ module ExcelSerializer
 
     def current_excel
       return @current_excel if @current_excel.present?
-      @current_excel = wrapper.new(file_path)
+      @current_excel = adapter.new(file_path)
     end
 
     def write(sheet_name, row)
@@ -37,7 +37,7 @@ module ExcelSerializer
 
     def file_path=(file_path)
       if file_path.blank? 
-        @file_path = "/tmp/#{SecureRandom.uuid}#{wrapper.file_extension}"
+        @file_path = "/tmp/#{SecureRandom.uuid}#{adapter.file_extension}"
       else
         @file_path= file_path
       end
@@ -52,8 +52,8 @@ module ExcelSerializer
       return file_path
     end
 
-    def wrapper
-      ::ExcelSerializer::Wrappers::WriteExcel
+    def adapter
+      ::ExcelSerializer::Adapters::WriteExcel
     end
   end
 end

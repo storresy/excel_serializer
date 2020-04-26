@@ -1,7 +1,7 @@
 module ExcelSerializer
-  module Wrappers
+  module Adapters
     class WriteExcel
-      # This is the wrapper for WriteExcel gem
+      # This is the adapter for WriteExcel gem
       
       def initialize(file_path)
         @write_excel = ::WriteExcel.new(file_path)
