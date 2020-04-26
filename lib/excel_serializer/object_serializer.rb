@@ -2,9 +2,17 @@ module ExcelSerializer
   module ObjectSerializer
     extend ActiveSupport::Concern
     include Writer
+    include HeadersTranslator
 
     included do
       attr_accessor :resources
+
+      class << self
+        attr_accessor :attributes_to_serialize
+        attr_accessor :included_relations
+        attr_accessor :computed_headers
+        attr_accessor :config
+      end
     end
 
     class_methods do
@@ -19,16 +27,6 @@ module ExcelSerializer
           method: relation,
           serializer: (serializer || relation_serializer(relation))
         }
-      end
-
-      def compute_headers
-        if computed_headers.blank?
-          self.computed_headers ||= []
-          self.attributes_to_serialize.each do |attribute|
-            self.computed_headers << attribute.to_s.humanize # TODO: translate attribute
-          end
-        end
-        computed_headers
       end
 
       def excel_adapter(adapter)
@@ -94,18 +92,6 @@ module ExcelSerializer
           resource
         end.send(attribute)
       end
-    end
-
-    def headers
-      @headers ||= compute_headers
-    end
-
-    def compute_headers
-      @headers = self.class.compute_headers
-      self.class.included_relations.each do |key, hash|
-        @headers += hash[:serializer].constantize.compute_headers
-      end
-      @headers
     end
 
     private

@@ -2,15 +2,6 @@ module ExcelSerializer
   module Writer
     extend ActiveSupport::Concern
 
-    included do
-      class << self
-        attr_accessor :attributes_to_serialize
-        attr_accessor :included_relations
-        attr_accessor :computed_headers
-        attr_accessor :config
-      end
-    end
-
     private
 
     def add_headers(sheet_name)
