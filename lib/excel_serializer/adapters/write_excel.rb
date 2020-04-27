@@ -11,10 +11,6 @@ module ExcelSerializer
         WorkSheet.new(@write_excel, sheet_name)
       end
 
-      def write(sheet_name, row)
-        raise 'Not implemented'
-      end
-
       def save
         @write_excel.close
       end

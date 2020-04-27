@@ -1,4 +1,5 @@
 require "excel_serializer/version"
+require "excel_serializer/object_serializer"
 
 module ExcelSerializer
   class Error < StandardError; end

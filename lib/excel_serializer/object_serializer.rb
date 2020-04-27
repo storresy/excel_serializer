@@ -1,8 +1,11 @@
+require "excel_serializer/writer"
+require "excel_serializer/headers_translator"
+
 module ExcelSerializer
   module ObjectSerializer
     extend ActiveSupport::Concern
-    include Writer
-    include HeadersTranslator
+    include ::ExcelSerializer::Writer
+    include ::ExcelSerializer::HeadersTranslator
 
     included do
       attr_accessor :resources

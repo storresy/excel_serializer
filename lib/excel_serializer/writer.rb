@@ -1,3 +1,6 @@
+require "excel_serializer/worksheet"
+require "excel_serializer/adapters/write_excel"
+
 module ExcelSerializer
   module Writer
     extend ActiveSupport::Concern
@@ -24,7 +27,7 @@ module ExcelSerializer
     end
 
     def worksheet(sheet_name)
-      ExcelSerializer::Worksheet.new(current_excel, sheet_name)
+      ::ExcelSerializer::Worksheet.new(current_excel, sheet_name)
     end
 
     def file_path=(file_path)
