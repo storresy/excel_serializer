@@ -2,7 +2,12 @@ require "excel_serializer/version"
 require "excel_serializer/object_serializer"
 
 module ExcelSerializer
-  class Error < StandardError; end
+  class ExcelAdapterNotFoundError < StandardError
+    def initialize(class_name, gem_name)
+      msg = "#{class_name} could not be found. Please ensure you have '#{gem_name}' gem installed or setup a different excel adapter"
+      super(msg)
+    end
+  end
   class Config
     attr_accessor :excel_adapter, :translation_adapter
 

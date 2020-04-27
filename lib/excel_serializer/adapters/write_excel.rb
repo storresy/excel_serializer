@@ -5,6 +5,8 @@ module ExcelSerializer
       
       def initialize(file_path)
         @write_excel = ::WriteExcel.new(file_path)
+      rescue NameError => e
+        raise ExcelAdapterNotFoundError.new('WriteExcel', 'writeexcel')
       end
 
       def add_worksheet(sheet_name)
